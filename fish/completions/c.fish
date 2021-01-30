@@ -1,0 +1,2 @@
+complete -c c -n "__fish_use_subcommand" -a pass -d "copy password from gopass to clip board in Windows."
+complete -c c -n "__fish_use_subcommand" -a build-ssh-config -d "build config for ssh by assh to Windows and WSL."
