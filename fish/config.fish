@@ -8,6 +8,7 @@ alias s sudo
 # direnv を使用できるようにする
 eval (direnv hook fish)
 
+# Remote Extension 時のみに実行
 if [ -n is_vscode_env ]
     # sudoedit のエディタを vscode に変更
     set code_path (which code)
@@ -15,7 +16,7 @@ if [ -n is_vscode_env ]
     set -gx EDITOR "$code_path --wait"
 end
 
-# executed in wsl
+# WSL 時のみ実行
 if [ -n is_wsl ]
     # Settings for WSL
     # key agent
