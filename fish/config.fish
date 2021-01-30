@@ -23,7 +23,6 @@ if [ -n is_wsl ]
         gpg-agent --homedir /home/yn/.gnupg --daemon > /dev/null
     end
     set -U SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
-    alias git git.exe
     alias vivaldi /mnt/c/users/ynnys/AppData/Local/Vivaldi/Application/vivaldi.exe
     alias psh /mnt/c/Windows/System32/WindowsPowerShell/v1.0//powershell.exe
     # 引数として -ArgumentList '-Command ~' を与えてやれば，~ を実行してくれる
