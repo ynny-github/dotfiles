@@ -3,4 +3,7 @@ if [ ! -d ~/.config ]
     mkdir -p ~/.config
 end
 
-ln -s ~/dotfiles/fish ~/.config/fish
+set PREFIX ~/dotfiles
+
+ln -s $PREFIX/fish ~/.config/fish
+ln -s $PREFIX/.textlintrc.json ~/.config/.textlintrc.json
