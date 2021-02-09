@@ -5,5 +5,5 @@ end
 
 set PREFIX ~/dotfiles
 
-ln -s $PREFIX/fish ~/.config/fish
-ln -s $PREFIX/.textlintrc.json ~/.config/.textlintrc.json
+ln -sf $PREFIX/fish/* ~/.config/fish/
+ln -sf $PREFIX/.textlintrc.json ~/.config/.textlintrc.json
