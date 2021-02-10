@@ -1,7 +1,7 @@
 function fish_prompt --description 'Write out the prompt'
     # 環境に応じてプロンプトを分ける
     # 環境によって Web で選択したデザインに含まれる関数が実行できない事がある
-    if [ is_wsl ]
+    if is_wsl
         set -l last_pipestatus $pipestatus
 
         if not set -q __fish_git_prompt_show_informative_status
