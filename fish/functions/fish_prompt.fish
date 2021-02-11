@@ -1,7 +1,7 @@
 function fish_prompt --description 'Write out the prompt'
     # 環境に応じてプロンプトを分ける
     # 環境によって Web で選択したデザインに含まれる関数が実行できない事がある
-    if is_wsl
+    if [ -n $WSL_DISTRO_NAME ]
         set -l last_pipestatus $pipestatus
 
         if not set -q __fish_git_prompt_show_informative_status
@@ -71,19 +71,18 @@ function fish_prompt --description 'Write out the prompt'
                 set color_cwd $fish_color_cwd
                 set suffix '$'
         end
+        # PWD
+        set_color $color_cwd
+        echo -n (prompt_pwd)
+        set_color normal
 
-    # PWD
-    set_color $color_cwd
-    echo -n (prompt_pwd)
-    set_color normal
+        printf '%s ' (fish_vcs_prompt)
 
-    printf '%s ' (fish_vcs_prompt)
+        set -l pipestatus_string (__fish_print_pipestatus "[" "] " "|" (set_color $fish_color_status) (set_color --bold $fish_color_status) $last_pipestatus)
+        echo -n $pipestatus_string
+        set_color normal
 
-    set -l pipestatus_string (__fish_print_pipestatus "[" "] " "|" (set_color $fish_color_status) (set_color --bold $fish_color_status) $last_pipestatus)
-    echo -n $pipestatus_string
-    set_color normal
-
-    echo -n "$suffix "
+        echo -n "$suffix "
     else 
         printf '%s@%s %s > ' $USER (prompt_hostname) (prompt_pwd)
     end

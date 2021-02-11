@@ -10,7 +10,7 @@ alias se sudoedit
 eval (direnv hook fish)
 
 # Remote Extension 時のみに実行
-if is_vscode_env
+if [ -n $USES_VSCODE_SERVER_SPAWN ]
     # sudoedit のエディタを vscode に変更
     set code_path (which code)
     set -gx SUDO_EDITOR "$code_path --wait"
@@ -18,7 +18,7 @@ if is_vscode_env
 end
 
 # WSL 時のみ実行
-if is_wsl
+if [ -n $WSL_DISTRO_NAME ]
     # Settings for WSL
     # key agent
     if ! pgrep gpg-agent > /dev/null;
