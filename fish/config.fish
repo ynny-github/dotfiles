@@ -6,6 +6,12 @@ set -x SHELL /usr/bin/fish
 
 alias s sudo
 alias se sudoedit
+# vagrant の debug レベル
+# debug
+# info  出力の量のバランスがいいらしい
+# warn
+# error
+alias vagrant-with-detailerror "env VAGRANT_LOG=info vagrant"
 # direnv を使用できるようにする
 eval (direnv hook fish)
 
