@@ -1,0 +1,35 @@
+# .direnvrc で layout gatsbyjs で呼び出せる
+
+init_git() {
+    # .git がなければ、初期化
+    if [ ! -d .git ]; then
+        git init
+        git add .
+        git commit -m "Initial Commit"
+    fi
+}
+
+layout_gatsbyjs() {
+    # ファイルがあれば初期化しない
+    # 該当するファイルなら何でもいいが、間違いなく存在するファイルが無難
+    # 消す可能性があるファイルだと、間違って初期化しまう可能性がある
+    if [ ! -f package.json ]; then
+        # gatsby new だと .envrc が存在すると機能しないため、該当の処理をスクリプトで再現した
+        # git clone は空のディレクトリでないと実行できない
+        git clone --depth 1 https://github.com/gatsbyjs/gatsby-starter-default.git tmp
+        mv tmp/* .
+        mv tmp/.gitignore .
+        mv tmp/.prettierignore .
+        mv tmp/.prettierrc .
+        rm -rf tmp
+        echo ".envrc" >> .gitignore
+
+        # package をローカルにインストール
+        # 私は yarn を常用しているため、yarn にしている
+        # npm でも問題ない
+        yarn install
+
+        init_git
+    fi
+
+}
