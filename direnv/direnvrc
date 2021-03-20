@@ -1,14 +1,90 @@
-# .direnvrc で layout gatsbyjs で呼び出せる
-
 init_git() {
     # .git がなければ、初期化
     if [ ! -d .git ]; then
         git init
         git add .
-        git commit -m "Initial Commit"
+        git commit -m "Committed by react"
     fi
 }
 
+# SPA 用の React を生成する
+layout_react() {
+
+    if [ ! -f package.json ]; then
+        FILESDIR=".config/direnv/react"
+
+        # create-react-app を使わないでできるのがベター
+        # .envrc があると実行できないため、一旦、下位ディレクトリに作成する
+        create-react-app --template typescript tmp
+
+        mv tmp/* ./
+        mv tmp/.gitignore ./
+        rm -rf tmp
+
+        # 不要なファイルを削除
+        rm src/App.css
+        rm src/App.test.tsx
+        rm src/index.css
+        rm src/logo.svg
+        rm public/favicon.ico
+        rm public/logo192.png
+        rm public/logo512.png
+        rm public/manifest.json
+
+        # .gitignore に追記
+        echo "# added direnv" >> .gitignore
+        echo ".envrc" >> .gitignore
+        echo ".eslintcache" >> .gitignore
+
+        # パッケージ名の間にコメントを入れない
+        yarn add \
+            react-loops \
+            react-query \
+            axios \
+            @emotion/react \
+            react-app-rewired \
+            customize-cra 
+        yarn add -D \
+            link-module-alias \
+            eslint \
+            prettier \
+            eslint-config-prettier \
+            eslint-plugin-prettier \
+            @typescript-eslint/parser \
+            @typescript-eslint/eslint-plugin \
+            eslint-plugin-react \
+            eslint-plugin-react-hooks \
+            eslint-plugin-jest \
+            @types/jest \
+            ts-jest \
+            jest-extended \
+            msw \
+            @emotion/babel-preset-css-prop \
+            @storybook/cli
+
+        mkdir src/mocks
+        touch src/mocks/handlers.js
+
+        # storybook の初期化
+        yarn run sb init --type react_scripts
+        yarn run msw init --save ./public
+
+
+        node ~/$FILESDIR/modifyPackage.js
+        node ~/$FILESDIR/modifyTsconfig.js
+        cp ~/$FILESDIR/.eslintrc.json .eslintrc.json
+        cp ~/$FILESDIR/webpack-for-storybook.config.js .storybook/webpack.config.js
+        cp ~/$FILESDIR/.prettier.json .prettier.json
+        cp ~/$FILESDIR/config-overrides.js config-overrides.js
+
+        init_git
+
+    fi
+
+
+}
+
+# .direnvrc で layout gatsbyjs で呼び出せる
 layout_gatsbyjs() {
     # ファイルがあれば初期化しない
     # 該当するファイルなら何でもいいが、間違いなく存在するファイルが無難
