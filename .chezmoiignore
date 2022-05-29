@@ -1,1 +1,10 @@
 README.md
+
+# for chezmoi
+chezmoistate.boltdb
+
+# for micro editor
+backups/
+backups/**
+buffers/
+buffers/**

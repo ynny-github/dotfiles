@@ -1,0 +1,10 @@
+[include]
+path = .config/git/base.conf
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[user]
+	name = Yuya Nagai
+	email = open@ynny.dev
