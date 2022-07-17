@@ -50,6 +50,11 @@ if is_mac
         set -x DOCKER_HOST "ssh://parallels@ubuntu"
     end
 
+    # Python Settings
+    set -x PYENV_ROOT $HOME/.pyenv
+    set -x PATH  $PYENV_ROOT/bin $PATH
+    pyenv init - | source
+    
     # Written by app
     test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
     ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
