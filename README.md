@@ -2,7 +2,7 @@
 
 ## How to init ?
 ```
-
+curl -sf https://raw.githubusercontent.com/ynny-github/dotfiles/main/init.sh | sh -s
 ```
 
 

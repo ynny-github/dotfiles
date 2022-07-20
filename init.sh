@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 if [ -f /.dockerenv ]; then
     #TODO: I will write install commands each OS.
