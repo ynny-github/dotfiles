@@ -1,12 +1,9 @@
 # Dotfiles
 
 ## How to init ?
-旧初期化方法
 ```
-curl -L https://raw.githubusercontent.com/ynny-github/Home-Env/main/init.sh | bash
+sh -c "$(curl -fsLS chezmoi.io/get)" -- init --apply https://github.com/ynny-github/dotfiles.git
 ```
-
-新初期化方法は準備中
 
 
 ## 管理方法の推移
