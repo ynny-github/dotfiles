@@ -2,7 +2,7 @@
 
 ## How to init ?
 ```
-sh -c "$(curl -fsLS chezmoi.io/get)" -- init --apply https://github.com/ynny-github/dotfiles.git
+
 ```
 
 
