@@ -4,6 +4,11 @@ init.sh
 # for chezmoi
 chezmoistate.boltdb
 
+# fish
+*/fish/conf.d/
+*/fish/completions/
+fish_variables
+
 # for micro editor
 backups/
 backups/**
