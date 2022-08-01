@@ -1,5 +1,6 @@
 README.md
 init.sh
+.keep
 
 # for chezmoi
 chezmoistate.boltdb
