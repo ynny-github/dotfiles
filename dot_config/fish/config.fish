@@ -43,13 +43,6 @@ if is_mac
     # Open Xcode from cmd
     alias xcode="open -a /Applications/Xcode.app"
 
-    # Docker settings
-    if test -e /var/run/docker.sock
-        set -x DOCKER_HOST "/var/run/docker.sock"
-    else
-        set -x DOCKER_HOST "ssh://parallels@ubuntu"
-    end
-
     # Python Settings
     set -x PYENV_ROOT $HOME/.pyenv
     set -x PATH  $PYENV_ROOT/bin $PATH
