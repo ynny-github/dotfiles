@@ -17,7 +17,7 @@
                 },
                 "rules": [
                     {
-                        "description": "Function keys work as fn keys",
+                        "description": "(Atom, CKII, EUIV, iTerm, muCommander, PyCharm, VSCodium, WebStorm, AndroidStudio) Function keys work as fn keys",
                         "manipulators": [
                             {
                                 "conditions": [
@@ -51,7 +51,13 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "com.microsoft.VSCode"
+                                            "com.github.atom",
+                                            "com.googlecode.iterm2",
+                                            "com.mucommander.muCommander",
+                                            "com.jetbrains.pycharm",
+                                            "com.visualstudio.code.oss",
+                                            "com.jetbrains.WebStorm",
+                                            "com.google.android.studio"
                                         ],
                                         "file_paths": [
                                             "ck2\\.app",
@@ -79,7 +85,13 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "com.microsoft.VSCode"
+                                            "com.github.atom",
+                                            "com.googlecode.iterm2",
+                                            "com.mucommander.muCommander",
+                                            "com.jetbrains.pycharm",
+                                            "com.visualstudio.code.oss",
+                                            "com.jetbrains.WebStorm",
+                                            "com.google.android.studio"
                                         ],
                                         "file_paths": [
                                             "ck2\\.app",
@@ -107,7 +119,13 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "com.microsoft.VSCode"
+                                            "com.github.atom",
+                                            "com.googlecode.iterm2",
+                                            "com.mucommander.muCommander",
+                                            "com.jetbrains.pycharm",
+                                            "com.visualstudio.code.oss",
+                                            "com.jetbrains.WebStorm",
+                                            "com.google.android.studio"
                                         ],
                                         "file_paths": [
                                             "ck2\\.app",
@@ -135,7 +153,13 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "com.microsoft.VSCode"
+                                            "com.github.atom",
+                                            "com.googlecode.iterm2",
+                                            "com.mucommander.muCommander",
+                                            "com.jetbrains.pycharm",
+                                            "com.visualstudio.code.oss",
+                                            "com.jetbrains.WebStorm",
+                                            "com.google.android.studio"
                                         ],
                                         "file_paths": [
                                             "ck2\\.app",
@@ -163,7 +187,13 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "com.microsoft.VSCode"
+                                            "com.github.atom",
+                                            "com.googlecode.iterm2",
+                                            "com.mucommander.muCommander",
+                                            "com.jetbrains.pycharm",
+                                            "com.visualstudio.code.oss",
+                                            "com.jetbrains.WebStorm",
+                                            "com.google.android.studio"
                                         ],
                                         "file_paths": [
                                             "ck2\\.app",
@@ -191,7 +221,13 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "com.microsoft.VSCode"
+                                            "com.github.atom",
+                                            "com.googlecode.iterm2",
+                                            "com.mucommander.muCommander",
+                                            "com.jetbrains.pycharm",
+                                            "com.visualstudio.code.oss",
+                                            "com.jetbrains.WebStorm",
+                                            "com.google.android.studio"
                                         ],
                                         "file_paths": [
                                             "ck2\\.app",
@@ -219,7 +255,13 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "com.microsoft.VSCode"
+                                            "com.github.atom",
+                                            "com.googlecode.iterm2",
+                                            "com.mucommander.muCommander",
+                                            "com.jetbrains.pycharm",
+                                            "com.visualstudio.code.oss",
+                                            "com.jetbrains.WebStorm",
+                                            "com.google.android.studio"
                                         ],
                                         "file_paths": [
                                             "ck2\\.app",
@@ -247,7 +289,13 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "com.microsoft.VSCode"
+                                            "com.github.atom",
+                                            "com.googlecode.iterm2",
+                                            "com.mucommander.muCommander",
+                                            "com.jetbrains.pycharm",
+                                            "com.visualstudio.code.oss",
+                                            "com.jetbrains.WebStorm",
+                                            "com.google.android.studio"
                                         ],
                                         "file_paths": [
                                             "ck2\\.app",
@@ -275,7 +323,13 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "com.microsoft.VSCode"
+                                            "com.github.atom",
+                                            "com.googlecode.iterm2",
+                                            "com.mucommander.muCommander",
+                                            "com.jetbrains.pycharm",
+                                            "com.visualstudio.code.oss",
+                                            "com.jetbrains.WebStorm",
+                                            "com.google.android.studio"
                                         ],
                                         "file_paths": [
                                             "ck2\\.app",
@@ -303,7 +357,13 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "com.microsoft.VSCode"
+                                            "com.github.atom",
+                                            "com.googlecode.iterm2",
+                                            "com.mucommander.muCommander",
+                                            "com.jetbrains.pycharm",
+                                            "com.visualstudio.code.oss",
+                                            "com.jetbrains.WebStorm",
+                                            "com.google.android.studio"
                                         ],
                                         "file_paths": [
                                             "ck2\\.app",
@@ -331,7 +391,13 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "com.microsoft.VSCode"
+                                            "com.github.atom",
+                                            "com.googlecode.iterm2",
+                                            "com.mucommander.muCommander",
+                                            "com.jetbrains.pycharm",
+                                            "com.visualstudio.code.oss",
+                                            "com.jetbrains.WebStorm",
+                                            "com.google.android.studio"
                                         ],
                                         "file_paths": [
                                             "ck2\\.app",

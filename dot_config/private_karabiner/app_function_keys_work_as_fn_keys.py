@@ -13,7 +13,7 @@ def main():
     for rule in setting["rules"][0]["manipulators"]:
         rule["conditions"][0]["bundle_identifiers"] = APP
         rules.append(rule)
-    setting["rules"] = rules
+    setting["rules"][0]["manipulators"] = rules
 
     with open("assets/complex_modifications/function_keys_work_as_fn_keys_specified_app.json", "w") as fp:
         json.dump(setting, fp, indent=4)
