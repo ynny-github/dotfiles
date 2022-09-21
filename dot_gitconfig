@@ -1,10 +1,17 @@
 [include]
-path = .config/git/base.conf
+	path = ~/.gitconfig.local
+[core]
+    editor = code --wait
+    autocrlf = false
+[user]
+    name = Yuya Nagai
+    email = open@ynny.dev
+[init]
+    defaultBranch = main
+[push]
+    default = current
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
-[user]
-	name = Yuya Nagai
-	email = open@ynny.dev
