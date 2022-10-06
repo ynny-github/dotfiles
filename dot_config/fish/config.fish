@@ -84,7 +84,8 @@ if is_wsl
     alias gpk "curl -s https://github.com/yn-git.keys | clip.exe"
     alias sshfordocker "ssh -NL localhost:23750:/var/run/docker.sock docker-host &"
     alias cmd_to_deploy_dotfiles "echo 'git clone https://github.com/ynny-github/dotfiles.git && cd dotfiles && ./install.fish' | clip.exe "end
-
+    alias cc "/mnt/c/Users/yn/scoop/apps/python/current/python.exe ~/.local/bin/custom_command.py"
+    
     cd ~
 end
 
