@@ -13,27 +13,12 @@ alias se sudoedit
 # warn
 # error
 alias vagrant-with-detailerror "env VAGRANT_LOG=info vagrant"
-
 alias history-all-delete "history clear"
 
 
 # Settings for mac
 if is_mac
-    set PATH /opt/homebrew/bin $PATH
-    alias assh-build="assh config build > ~/.ssh/config"
-
-    # Setup GPG and ssh
-    if ! pgrep gpg-agent > /dev/null;
-        gpgconf --launch gpg-agent
-    end
-    # if [ -z $SSH_AUTH_SOCK ]
-    #    set -x SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
-    # end
-    set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
-
-    # set code_path (which code)
-    # set -gx SUDO_EDITOR "$code_path --wait"
-    # set -gx EDITOR "$code_path --wait"
+    fish_add_path /opt/homebrew/bin
 
     # code で開けないため、micro で対応
     set editor_path (which micro)
@@ -43,11 +28,23 @@ if is_mac
     # Open Xcode from cmd
     alias xcode="open -a /Applications/Xcode.app"
 
-    # Python Settings
-    set -x PYENV_ROOT $HOME/.pyenv
-    set -x PATH  $PYENV_ROOT/bin $PATH
-    pyenv init - | source
-    
+    if test "$CID" = "main-mackbook"
+        set -gx SSH_AUTH_SOCK "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+
+        # Python Settings
+        set -x PYENV_ROOT $HOME/.pyenv
+        set -x PATH  $PYENV_ROOT/bin $PATH
+        pyenv init - | source
+    end
+
+    if [ -z $SSH_AUTH_SOCK ]
+        # Setup GPG and ssh
+        if ! pgrep gpg-agent > /dev/null;
+            gpgconf --launch gpg-agent
+        end
+        set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
+    end
+
     # Written by app
     test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
     ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
