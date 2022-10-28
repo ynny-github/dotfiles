@@ -5,7 +5,7 @@ README.md
 chezmoistate.boltdb
 
 # fish
-*/fish/conf.d/
+*/fish/conf.d/local.fish
 */fish/completions/
 fish_variables
 
