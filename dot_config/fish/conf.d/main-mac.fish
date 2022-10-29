@@ -1,6 +1,7 @@
 # main mac ID is main-macbook.
-if test "$CID" = "main-mackbook"
-    set -gx SSH_AUTH_SOCK "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+if test "$CID" = "main-macbook"
+    # must absolute path
+    set -gx SSH_AUTH_SOCK "$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
 
     # Python Settings
     set -x PYENV_ROOT $HOME/.pyenv
