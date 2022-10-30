@@ -1,6 +1,7 @@
 [core]
     editor = code --wait
     autocrlf = false
+    filemode = true
 [user]
     name = Yuya Nagai
     email = open@ynny.dev
