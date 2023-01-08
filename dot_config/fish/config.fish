@@ -3,5 +3,5 @@
 # remove greeting message
 set fish_greeting ""
 
-alias s sudo
-alias se sudoedit
+abbr --add s sudo
+abbr --add se sudoedit
