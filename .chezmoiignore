@@ -1,5 +1,8 @@
 README.md
 .keep
+chezmoi_installer.sh
+install_via_http.sh
+install.sh
 
 # for chezmoi
 chezmoistate.boltdb
