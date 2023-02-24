@@ -49,3 +49,8 @@ chezmoi init --apply ynny-github
 asdf plugin add direnv
 asdf install direnv latest
 asdf global direnv latest
+
+# setup starship
+asdf plugin add starship
+asdf install starship latest
+asdf global starship latest
