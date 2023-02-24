@@ -11,5 +11,5 @@ if test -f ~/.asdf/asdf.fish
 end
 
 if command -v starship > /dev/null
-   starship init fish | source
+    starship init fish | source
 end
