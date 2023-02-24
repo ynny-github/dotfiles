@@ -1,8 +1,12 @@
 README.md
 .keep
-chezmoi_installer.sh
 install_via_http.sh
 install.sh
+debug_install.sh
+installer.sh
+Dockerfile
+docker-compose.yml
+
 
 # for chezmoi
 chezmoistate.boltdb

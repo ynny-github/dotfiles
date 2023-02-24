@@ -1,0 +1,11 @@
+version: "3.8"
+services:
+  dotfiles:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /root/debug_dotfiles
+    volumes:
+      # if path is except ~/dotfiles、
+      # mount direcotry isn't removed when execute install.sh.
+      - .:/root/debug_dotfiles
