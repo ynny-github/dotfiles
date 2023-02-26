@@ -54,3 +54,13 @@ asdf global direnv latest
 asdf plugin add starship
 asdf install starship latest
 asdf global starship latest
+
+if [ ! -f ~/.bashrc ]; then
+    touch ~/.bashrc
+fi
+cat << EOF >> ~/.bashrc
+# DO NOT EDIT
+. "$HOME/.asdf/asdf.sh"
+source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/bashrc"
+# DO NOT EDIT
+EOF
