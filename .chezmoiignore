@@ -22,6 +22,3 @@ backups/
 backups/**
 buffers/
 buffers/**
-
-# karabiner elements
-karabiner/automatic_backups/
