@@ -55,6 +55,11 @@ asdf plugin add starship
 asdf install starship latest
 asdf global starship latest
 
+# setup jsonnet
+asdf plugin add jsonnet
+asdf install jsonnet latest
+asdf global jsonnet latest
+
 if [ ! -f ~/.bashrc ]; then
     touch ~/.bashrc
 fi
