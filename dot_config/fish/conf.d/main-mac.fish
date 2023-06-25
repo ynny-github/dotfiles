@@ -12,4 +12,6 @@ if test "$CID" = "main-macbook"
 
     # Open Xcode from cmd
     alias xcode="open -a /Applications/Xcode.app"
+
+    set -gx GOOGLE_DRIVE "$HOME/Google Drive/My Drive"
 end
