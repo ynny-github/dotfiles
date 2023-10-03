@@ -32,40 +32,21 @@ if [ ! -d ~/.config/fish/completions ]; then
 fi
 
 # setup asdf
-git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.11.2
-if [ -d ~/.asdf ]; then
-    ln -s ~/.asdf/completions/asdf.fish ~/.config/fish/completions
+if ! do_exist_cmd "rtx"; then
+    curl https://rtx.pub/install.sh | sh
 fi
-. "$HOME/.asdf/asdf.sh"
 
-# setup chezmoi
-asdf plugin add chezmoi
-asdf install chezmoi latest
-asdf global chezmoi latest
+cp dot_config/rtx/config.toml ~/.config/rtx/config.toml
+rtx install -y
+
 # XXX: it is very inefficiency because this cloning run twice.
 chezmoi init --apply ynny-github
-
-# setup direnv
-asdf plugin add direnv
-asdf install direnv latest
-asdf global direnv latest
-
-# setup starship
-asdf plugin add starship
-asdf install starship latest
-asdf global starship latest
-
-# setup jsonnet
-asdf plugin add jsonnet
-asdf install jsonnet latest
-asdf global jsonnet latest
 
 if [ ! -f ~/.bashrc ]; then
     touch ~/.bashrc
 fi
 cat << EOF >> ~/.bashrc
 # DO NOT EDIT
-. "$HOME/.asdf/asdf.sh"
-source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/bashrc"
+eval "$(rtx activate bash)"
 # DO NOT EDIT
 EOF

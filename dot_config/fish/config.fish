@@ -6,13 +6,14 @@ set fish_greeting ""
 abbr --add s sudo
 abbr --add se sudoedit
 
-if test -f ~/.asdf/asdf.fish
-    source ~/.asdf/asdf.fish
+if command -v rtx > /dev/null
+    rtx activate fish | source
+    rtx hook-env -s fish | source
+    rtx complete -s fish | source
 end
 
 if command -v direnv > /dev/null
-    set -gx ASDF_DIRENV_BIN (asdf which direnv)
-    $ASDF_DIRENV_BIN hook fish | source
+    direnv hook fish | source
 end
 
 if command -v starship > /dev/null

@@ -1,0 +1,5 @@
+[tools]
+chezmoi = "latest"
+starship = "latest"
+direnv = "latest"
+jsonnet = "latest"
