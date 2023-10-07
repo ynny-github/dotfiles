@@ -5,6 +5,7 @@ set fish_greeting ""
 
 abbr --add s sudo
 abbr --add se sudoedit
+abbr --add edit-dotfiles code ~/.local/share/chezmoi
 
 if command -v rtx > /dev/null
     rtx activate fish | source
