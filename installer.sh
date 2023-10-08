@@ -1,6 +1,6 @@
 #!/bin/bash
 
-exec_cmd_with_sudo () {
+exec_as_root () {
     if [ ${HOME} = "/root" ]; then
         $@
     else
@@ -8,7 +8,7 @@ exec_cmd_with_sudo () {
     fi
 }
 
-do_exist_cmd () {
+exist_cmd () {
     if type $1 &> /dev/null; then
         return 0
     else
@@ -18,15 +18,15 @@ do_exist_cmd () {
 
 # install required packages in container
 if [ -f /.dockerenv ]; then
-    if do_exist_cmd "apt"; then
-        exec_cmd_with_sudo apt update
-        exec_cmd_with_sudo apt install -y fish curl
-    elif do_exist_cmd "yum"; then
-        exec_cmd_with_sudo yum update
-        exec_cmd_with_sudo yum install -y fish curl
+    if exist_cmd "apt"; then
+        exec_as_root apt update
+        exec_as_root apt install -y fish curl git
+    elif exist_cmd "yum"; then
+        exec_as_root yum update
+        exec_as_root yum install -y fish curl git
     fi
 
-    if ! do_exist_cmd "rtx"; then
+    if ! exist_cmd "rtx"; then
         curl https://rtx.pub/install.sh | sh
     fi
     eval "$(~/.local/share/rtx/bin/rtx activate bash)"
@@ -34,13 +34,6 @@ fi
 
 if [ ! -d ~/.config ]; then
     mkdir -p ~/.config
-fi
-
-if [ ! -d ~/.config/fish ]; then
-    mkdir -p ~/.config/fish
-fi
-if [ ! -d ~/.config/fish/completions ]; then
-    mkdir -p ~/.config/fish/completions
 fi
 
 if [ ! -d ~/.config/rtx ]; then
