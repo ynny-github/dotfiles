@@ -7,6 +7,7 @@ installer.sh
 Dockerfile
 docker-compose.yml
 clean.sh
+exclude/
 
 
 # for chezmoi

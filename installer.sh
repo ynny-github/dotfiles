@@ -25,34 +25,34 @@ if [ -f /.dockerenv ]; then
         exec_as_root yum update
         exec_as_root yum install -y fish curl git
     fi
-
-    if ! exist_cmd "rtx"; then
-        curl https://rtx.pub/install.sh | sh
-    fi
-    eval "$(~/.local/share/rtx/bin/rtx activate bash)"
 fi
 
 if [ ! -d ~/.config ]; then
     mkdir -p ~/.config
 fi
 
-if [ ! -d ~/.config/rtx ]; then
-    mkdir -p ~/.config/rtx
+if [ ! -d ~/.config/mise ]; then
+    mkdir -p ~/.config/mise
 fi
-cp dot_config/rtx/config.toml ~/.config/rtx/config.toml
-rtx install -y
+
+cp exclude/mise/config.toml ~/.config/mise/config.toml
+if [ ! -d ~/.local/bin/mise ]; then
+    curl https://mise.run | sh
+fi
+eval "$(~/.local/bin/mise activate bash)"
+mise install -y
 
 # XXX: it is very inefficiency because this cloning run twice.
-rtx exec chezmoi@latest -- chezmoi init --apply ynny-github
+mise exec chezmoi@latest -- chezmoi init --apply ynny-github
 
 
-rtx_path=$(which rtx)
+mise_path=$(which mise)
 if [ ! -f ~/.bashrc ]; then
     touch ~/.bashrc
 fi
 cat << EOF >> ~/.bashrc
 # DO NOT EDIT
-eval "\$($rtx_path activate bash)"
+eval "\$($mise_path activate bash)"
 # DO NOT EDIT
 EOF
 
@@ -61,7 +61,7 @@ if [ ! -f ~/.zshrc ]; then
 fi
 cat << EOF >> ~/.zshrc
 # DO NOT EDIT
-eval "\$($rtx_path activate zsh)"
+eval "\$($mise_path activate zsh)"
 # DO NOT EDIT
 EOF
 
@@ -74,10 +74,10 @@ exec fish
 # DO NOT EDIT
 EOF
 
-if [ ! -f ~/.zshprofile ]; then
-    touch ~/.zshprofile
+if [ ! -f ~/.zprofile ]; then
+    touch ~/.zprofile
 fi
-cat << EOF >> ~/.zshprofile
+cat << EOF >> ~/.zprofile
 # DO NOT EDIT
 exec fish
 # DO NOT EDIT
