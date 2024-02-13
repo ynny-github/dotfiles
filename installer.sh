@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e -o pipefail
 
 exec_as_root () {
     if [ ${HOME} = "/root" ]; then

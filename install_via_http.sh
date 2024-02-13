@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e -o pipefail
 
 cd ~
 git clone https://github.com/ynny-github/dotfiles.git
