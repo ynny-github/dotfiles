@@ -36,10 +36,10 @@ end
 # remove greeting message
 set fish_greeting ""
 
-if exist_cmd rtx
-    rtx activate fish | source
-    rtx hook-env -s fish | source
-    rtx complete -s fish | source
+if [ -f ~/.local/bin/mise ]
+    ~/.local/bin/mise activate fish | source
+    mise hook-env -s fish | source
+    mise complete -s fish | source
 end
 
 if exist_cmd starship
