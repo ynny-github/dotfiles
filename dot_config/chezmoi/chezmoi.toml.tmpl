@@ -1,3 +1,9 @@
+{{ if eq (env "CID") "main-macbook" }}
+sourceDir = "/Users/yn/code/system/chezmoi"
+[onepassword]
+    mode = "service"
+{{ end }}
+
 [git]
     autoCommit = true
     autoPush = true
