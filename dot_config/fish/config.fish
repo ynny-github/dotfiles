@@ -69,6 +69,14 @@ switch $CID
 
         set -gx GOOGLE_DRIVE "$HOME/Google Drive/My Drive"# other commands for other hostname
 
+        if test "$VSCODE_RESOLVING_ENVIRONMENT" = 1
+            mise activate fish --shims | source
+        else if status is-interactive
+            mise activate fish | source
+        else
+            mise activate fish --shims | source
+        end
+
     case "working-mac"
         fish_add_path /opt/homebrew/bin
         # because mac can't open code.
