@@ -65,21 +65,3 @@ cat << EOF >> ~/.zshrc
 eval "\$($mise_path activate zsh)"
 # DO NOT EDIT
 EOF
-
-if [ ! -f ~/.bash_profile ]; then
-    touch ~/.bash_profile
-fi
-cat << EOF >> ~/.bash_profile
-# DO NOT EDIT
-exec fish
-# DO NOT EDIT
-EOF
-
-if [ ! -f ~/.zprofile ]; then
-    touch ~/.zprofile
-fi
-cat << EOF >> ~/.zprofile
-# DO NOT EDIT
-exec fish
-# DO NOT EDIT
-EOF

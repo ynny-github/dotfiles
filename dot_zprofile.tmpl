@@ -1,0 +1,8 @@
+# Switch to default shell in interactive mode
+{{- if .defaultShell }}
+if [[ -o interactive ]] && [[ -z "$ANTIGRAVITY_AGENT" ]] && command -v {{ .defaultShell }} &> /dev/null; then
+    exec {{ .defaultShell }}
+fi
+{{- end }}
+
+# If exec didn't happen, .zshrc will be sourced automatically after this
