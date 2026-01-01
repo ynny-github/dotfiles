@@ -23,3 +23,7 @@ backups/
 backups/**
 buffers/
 buffers/**
+
+# git
+.gitmodules
+.gitattributess
