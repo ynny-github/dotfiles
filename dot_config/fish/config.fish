@@ -58,5 +58,14 @@ abbr --add s sudo
 abbr --add se sudoedit
 abbr --add edit-dotfiles code ~/.local/share/chezmoi
 
+# git commit with specific editor
+function gca
+    env GIT_EDITOR="agy --wait" git commit -e $argv
+end
+
+function gcc
+    env GIT_EDITOR="code --wait" git commit -e $argv
+end
+
 
 fish_add_path ~/.antigravity/antigravity/bin

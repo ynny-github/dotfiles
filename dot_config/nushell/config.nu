@@ -25,5 +25,10 @@ alias se = sudoedit
 alias edit-dotfiles = code ~/.local/share/chezmoi
 
 # git commit with specific editor
-def gca [] { with-env { GIT_EDITOR: "agy --wait" } { git commit } }
-def gcc [] { with-env { GIT_EDITOR: "code --wait" } { git commit } }
+def gca [...args] { 
+    with-env { GIT_EDITOR: "agy --wait" } { git commit -e ...$args }
+}
+
+def gcc [...args] { 
+    with-env { GIT_EDITOR: "code --wait" } { git commit -e ...$args }
+}
