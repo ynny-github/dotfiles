@@ -36,6 +36,9 @@ end
 # remove greeting message
 set fish_greeting ""
 
+# Add local bin directories to PATH
+fish_add_path ~/.local/bin
+
 if [ -f ~/.local/bin/mise ]
     mise hook-env -s fish | source
     mise complete -s fish | source
@@ -66,6 +69,3 @@ end
 function gcc
     env GIT_EDITOR="code --wait" git commit -e $argv
 end
-
-
-fish_add_path ~/.antigravity/antigravity/bin

@@ -1,0 +1,18 @@
+# .bashrc - for interactive bash shells
+
+{{- if eq .chezmoi.os "darwin" }}
+# Add Homebrew to PATH
+eval "$(/opt/homebrew/bin/brew shellenv)"
+{{- end }}
+
+# Add local bin directories to PATH (in case not set by .bash_profile)
+export PATH="$HOME/.local/bin:$PATH"
+# Initialize mise for interactive bash sessions
+if [ -f "$HOME/.local/bin/mise" ]; then
+    # Use full activation for interactive shells
+    if [[ $- == *i* ]]; then
+        eval "$($HOME/.local/bin/mise activate bash)"
+    else
+        eval "$($HOME/.local/bin/mise activate bash --shims)"
+    fi
+fi
