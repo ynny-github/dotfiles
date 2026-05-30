@@ -9,5 +9,5 @@ curl -sf https://raw.githubusercontent.com/ynny-github/dotfiles/main/install.sh 
 ```
 docker-compose up -d
 docker-compose exec dotfiles /bin/bash --login
-./debug_install.sh
+./install.sh
 ```
