@@ -21,3 +21,5 @@ else
 fi
 
 chezmoi init --apply ynny-github
+# Push 作業用に ssh に切り替え
+git -C "$(chezmoi source-path)" remote set-url origin git@github.com:ynny-github/dotfiles.git
