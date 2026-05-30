@@ -1,0 +1,4 @@
+{{- if eq .chezmoi.os "linux" }}
+export PATH="${HOME}/.local/bin:${PATH}"
+{{- end }}
+eval "$(mise activate bash)"
