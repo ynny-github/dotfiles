@@ -10,6 +10,4 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 export PATH="$HOME/.local/bin:$PATH"
 
 # Initialize mise if available
-if [ -f "$HOME/.local/bin/mise" ]; then
-    eval "$($HOME/.local/bin/mise activate zsh --shims)"
-fi
+eval "$(mise activate zsh --shims)"
