@@ -1,0 +1,6 @@
+[tools]
+starship = "latest"
+assh = "latest"
+herdr = "latest"
+neovim = "latest"
+lazygit = "latest"
