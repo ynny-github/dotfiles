@@ -5,3 +5,9 @@
 # Add Homebrew to PATH
 eval "$(/opt/homebrew/bin/brew shellenv)"
 {{- end }}
+
+{{- if eq .chezmoi.os "linux" }}
+export PATH="${HOME}/.local/bin:${PATH}"
+{{- end }}
+
+eval "$(mise activate zsh --shims)"
