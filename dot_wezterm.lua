@@ -4,6 +4,7 @@ local config = wezterm.config_builder()
 config.automatically_reload_config = true
 
 config.font_size = 14.0
+config.font = wezterm.font('Moralerspace Argon JPDOC')
 
 config.color_scheme = 'Night Owl (Gogh)'
 
