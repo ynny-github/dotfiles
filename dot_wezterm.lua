@@ -1,5 +1,6 @@
 local wezterm = require 'wezterm'
 local config = wezterm.config_builder()
+local act = wezterm.action
 
 config.automatically_reload_config = true
 
@@ -10,7 +11,24 @@ config.color_scheme = 'Night Owl (Gogh)'
 
 config.use_ime = true
 
--- workspace settings
+-- Launcher choices
+local launcher_choices = {
+ { label = "Neovim", command = "nvim", icon = "md_file_edit" },
+ { label = "Lazygit", command = "lazygit", icon = "md_git" }
+}
+
+wezterm.on("augment-command-palette", function()
+ local entries = {}
+ for _, item in ipairs(launcher_choices) do
+  table.insert(entries, {
+   brief = "Launch: " .. item.label,
+   icon = item.icon,
+   action = spawn_overlay_pane(item.command),
+  })
+ end
+ return entries
+end)
+
 config.keys = {
   {
     mods = 'SUPER',
@@ -32,7 +50,37 @@ config.keys = {
         end
       end),
     },
-  }
+  },
+ -- Select a command via fuzzy finder and run it in an overlay pane
+  {
+    key = "l",
+    mods = "SUPER",
+    action = act.InputSelector({
+    title = "Launcher",
+    choices = (function()
+        local choices = {}
+        for _, item in ipairs(launcher_choices) do
+        table.insert(choices, { label = item.label })
+        end
+        return choices
+    end)(),
+    action = wezterm.action_callback(function(window, pane, _id, label)
+        if not label then
+        return
+        end
+        for _, item in ipairs(launcher_choices) do
+        if item.label == label then
+        local new_pane = pane:split({
+        direction = "Bottom",
+        args = { os.getenv("SHELL"), "-ic", item.command },
+        })
+        window:perform_action(act.TogglePaneZoomState, new_pane)
+        return
+        end
+        end
+    end),
+  }),
+ },
 }
 
 return config
