@@ -83,4 +83,14 @@ config.keys = {
  },
 }
 
+config.use_fancy_tab_bar = false
+config.status_update_interval = 1000
+
+wezterm.on('update-right-status', function(window, pane)
+  local date = wezterm.strftime('%Y-%m-%d %H:%M:%S')
+  window:set_right_status(wezterm.format {
+    { Text = date },
+  })
+end)
+
 return config
