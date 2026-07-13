@@ -27,7 +27,7 @@ function is_wsl
     # wsl
     if string length -q -- $WSL_DISTRO_NAME
         return 0
-    # not wsl
+        # not wsl
     else
         return 1
     end
@@ -56,16 +56,8 @@ if exist_cmd starship
     starship init fish | source
 end
 
-
 abbr --add s sudo
 abbr --add se sudoedit
 abbr --add edit-dotfiles code ~/.local/share/chezmoi
 
-# git commit with specific editor
-function gca
-    env GIT_EDITOR="agy --wait" git commit -e $argv
-end
-
-function gcc
-    env GIT_EDITOR="code --wait" git commit -e $argv
-end
+set -Ux EDITOR hx
