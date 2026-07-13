@@ -3,14 +3,10 @@
 
 local STATE_FILE = os.getenv("HOME") .. "/.local/state/yazi/persist-by-launch.json"
 
-local get_launch_cwd = ya.sync(function()
-	return tostring(cx.tabs[1].current.cwd)
-end)
-
 return {
 	setup = function(state, opts)
 		state.state_file = STATE_FILE
-		state.launch_cwd = get_launch_cwd()
+		state.launch_cwd = os.getenv("PWD")
 		state.restored = false
 		ya.dbg("persist-by-launch: launch_cwd=" .. tostring(state.launch_cwd))
 	end,
