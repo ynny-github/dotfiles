@@ -1,2 +1,2 @@
 -- ~/.config/yazi/init.lua
-require("autosession"):setup()
+require("persist-by-launch"):setup()

@@ -1,6 +1,4 @@
 # ~/.config/yazi/keymap.toml
 [mgr]
-prepend_keymap = [
-    { on = [ "q" ], run = "plugin autosession -- save-and-quit", desc = "Save session and quit" },
-]
+prepend_keymap = []
 
