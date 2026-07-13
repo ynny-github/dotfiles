@@ -50,9 +50,14 @@ local save = ya.sync(function(state)
 		tabs = {},
 	}
 	for i, tab in ipairs(tabs) do
+		local hovered = tab.current.hovered
+		local cursor_name = nil
+		if hovered then
+			cursor_name = tostring(hovered.url):match("([^/]+)$")
+		end
 		session.tabs[i] = {
 			cwd = tostring(tab.current.cwd),
-			cursor = nil,
+			cursor = cursor_name,
 			selected = {},
 			sort = {
 				by = tab.pref.sort_by,
@@ -71,7 +76,9 @@ local save = ya.sync(function(state)
 	ya.dbg("persist-by-launch: saved " .. state.launch_cwd)
 end)
 
-local restore = ya.sync(function(state)
+local pending_tab_data = nil
+
+local restore_prefs = ya.sync(function(state)
 	if state.restored then
 		return
 	end
@@ -95,7 +102,17 @@ local restore = ya.sync(function(state)
 	if tab_data.show_hidden ~= nil then
 		ya.emit("hidden", { tab_data.show_hidden and "show" or "hide" })
 	end
+	pending_tab_data = tab_data
 	ya.dbg("persist-by-launch: restored " .. state.launch_cwd)
+end)
+
+local restore_cursor = ya.sync(function()
+	if not pending_tab_data or not pending_tab_data.cursor then
+		return
+	end
+	local target = pending_tab_data.cwd .. "/" .. pending_tab_data.cursor
+	ya.emit("reveal", { target, no_dummy = true, raw = true })
+	pending_tab_data = nil
 end)
 
 return {
@@ -107,10 +124,13 @@ return {
 		ps.sub("cd", function()
 			ya.async(function()
 				ya.sleep(0.05)
-				local ok, err = pcall(restore)
+				local ok, err = pcall(restore_prefs)
 				if not ok then
-					ya.err("persist-by-launch: restore failed: " .. tostring(err))
+					ya.err("persist-by-launch: restore_prefs failed: " .. tostring(err))
+					return
 				end
+				ya.sleep(0.15)
+				pcall(restore_cursor)
 			end)
 		end)
 	end,
