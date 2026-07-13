@@ -1,5 +1,14 @@
 -- ~/.config/yazi/plugins/persist-by-launch.yazi/main.lua
 -- Persist yazi session state keyed by the launch cwd (parent shell's $PWD).
+--
+-- Currently persists per launch cwd:
+--   - active tab's cwd, hovered cursor, sort, linemode, show_hidden
+--
+-- Not implemented:
+--   - multi-select restore (cx.active.selected iterates but always returns 0
+--     entries in our save context; API investigation deferred)
+--   - multi-tab restore (only the active tab is saved/restored; tab_create /
+--     tab_close / tab_switch orchestration deferred)
 
 local STATE_FILE = os.getenv("HOME") .. "/.local/state/yazi/persist-by-launch.json"
 
@@ -44,39 +53,29 @@ local save = ya.sync(function(state)
 	if not state.launch_cwd then
 		return
 	end
-	local tabs = cx.tabs
+	local tab = cx.active
+	local hovered = tab.current.hovered
+	local cursor_name = hovered and tostring(hovered.url):match("([^/]+)$") or nil
 	local session = {
-		active = tabs.idx,
-		tabs = {},
+		cwd = tostring(tab.current.cwd),
+		cursor = cursor_name,
+		sort = {
+			by = tab.pref.sort_by,
+			reverse = tab.pref.sort_reverse,
+			dir_first = tab.pref.sort_dir_first,
+			sensitive = tab.pref.sort_sensitive,
+			translit = tab.pref.sort_translit,
+		},
+		linemode = tab.pref.linemode,
+		show_hidden = tab.pref.show_hidden,
 	}
-	for i, tab in ipairs(tabs) do
-		local hovered = tab.current.hovered
-		local cursor_name = nil
-		if hovered then
-			cursor_name = tostring(hovered.url):match("([^/]+)$")
-		end
-		session.tabs[i] = {
-			cwd = tostring(tab.current.cwd),
-			cursor = cursor_name,
-			selected = {},
-			sort = {
-				by = tab.pref.sort_by,
-				reverse = tab.pref.sort_reverse,
-				dir_first = tab.pref.sort_dir_first,
-				sensitive = tab.pref.sort_sensitive,
-				translit = tab.pref.sort_translit,
-			},
-			linemode = tab.pref.linemode,
-			show_hidden = tab.pref.show_hidden,
-		}
-	end
 	local all = read_all(state.state_file)
 	all[state.launch_cwd] = session
 	write_all(state.state_file, all)
 	ya.dbg("persist-by-launch: saved " .. state.launch_cwd)
 end)
 
-local pending_tab_data = nil
+local pending = nil
 
 local restore_prefs = ya.sync(function(state)
 	if state.restored then
@@ -88,31 +87,29 @@ local restore_prefs = ya.sync(function(state)
 	end
 	local all = read_all(state.state_file)
 	local entry = all[state.launch_cwd]
-	if type(entry) ~= "table" or type(entry.tabs) ~= "table" or #entry.tabs == 0 then
+	if type(entry) ~= "table" or not entry.cwd then
 		return
 	end
-	local tab_data = entry.tabs[1]
-	ya.emit("cd", { tab_data.cwd })
-	if type(tab_data.sort) == "table" then
-		ya.emit("sort", tab_data.sort)
+	ya.emit("cd", { entry.cwd })
+	if type(entry.sort) == "table" then
+		ya.emit("sort", entry.sort)
 	end
-	if tab_data.linemode then
-		ya.emit("linemode", { tab_data.linemode })
+	if entry.linemode then
+		ya.emit("linemode", { entry.linemode })
 	end
-	if tab_data.show_hidden ~= nil then
-		ya.emit("hidden", { tab_data.show_hidden and "show" or "hide" })
+	if entry.show_hidden ~= nil then
+		ya.emit("hidden", { entry.show_hidden and "show" or "hide" })
 	end
-	pending_tab_data = tab_data
+	pending = entry
 	ya.dbg("persist-by-launch: restored " .. state.launch_cwd)
 end)
 
 local restore_cursor = ya.sync(function()
-	if not pending_tab_data or not pending_tab_data.cursor then
+	if not pending or not pending.cursor then
 		return
 	end
-	local target = pending_tab_data.cwd .. "/" .. pending_tab_data.cursor
-	ya.emit("reveal", { target, no_dummy = true, raw = true })
-	pending_tab_data = nil
+	ya.emit("reveal", { pending.cwd .. "/" .. pending.cursor, no_dummy = true, raw = true })
+	pending = nil
 end)
 
 return {
