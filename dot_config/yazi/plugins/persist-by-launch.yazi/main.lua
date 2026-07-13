@@ -71,11 +71,48 @@ local save = ya.sync(function(state)
 	ya.dbg("persist-by-launch: saved " .. state.launch_cwd)
 end)
 
+local restore = ya.sync(function(state)
+	if state.restored then
+		return
+	end
+	state.restored = true
+	if not state.launch_cwd then
+		return
+	end
+	local all = read_all(state.state_file)
+	local entry = all[state.launch_cwd]
+	if type(entry) ~= "table" or type(entry.tabs) ~= "table" or #entry.tabs == 0 then
+		return
+	end
+	local tab_data = entry.tabs[1]
+	ya.emit("cd", { tab_data.cwd })
+	if type(tab_data.sort) == "table" then
+		ya.emit("sort", tab_data.sort)
+	end
+	if tab_data.linemode then
+		ya.emit("linemode", { tab_data.linemode })
+	end
+	if tab_data.show_hidden ~= nil then
+		ya.emit("hidden", { tab_data.show_hidden and "show" or "hide" })
+	end
+	ya.dbg("persist-by-launch: restored " .. state.launch_cwd)
+end)
+
 return {
 	setup = function(state, opts)
 		state.state_file = STATE_FILE
 		state.launch_cwd = os.getenv("PWD")
 		state.restored = false
+
+		ps.sub("cd", function()
+			ya.async(function()
+				ya.sleep(0.05)
+				local ok, err = pcall(restore)
+				if not ok then
+					ya.err("persist-by-launch: restore failed: " .. tostring(err))
+				end
+			end)
+		end)
 	end,
 
 	entry = function(_, job)
