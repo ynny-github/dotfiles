@@ -3,6 +3,10 @@
 --
 -- Currently persists per launch cwd:
 --   - active tab's cwd, hovered cursor, sort, linemode, show_hidden
+--   - last_seen timestamp for TTL-based sweep (see TTL_SECONDS)
+--
+-- On every save the store is swept: entries whose last_seen is older than
+-- TTL_SECONDS (or missing) are dropped.
 --
 -- Not implemented:
 --   - multi-select restore (cx.active.selected iterates but always returns 0
@@ -11,6 +15,7 @@
 --     tab_close / tab_switch orchestration deferred)
 
 local STATE_FILE = os.getenv("HOME") .. "/.local/state/yazi/persist-by-launch.json"
+local TTL_SECONDS = 30 * 24 * 60 * 60 -- 30 days: prune entries not saved within this window
 
 local function read_all(path)
 	local file = io.open(path, "r")
@@ -49,6 +54,20 @@ local function write_all(path, data)
 	file:close()
 end
 
+local function sweep(all, now)
+	local cutoff = now - TTL_SECONDS
+	local kept = {}
+	local dropped = 0
+	for key, entry in pairs(all) do
+		if type(entry) == "table" and (tonumber(entry.last_seen) or 0) >= cutoff then
+			kept[key] = entry
+		else
+			dropped = dropped + 1
+		end
+	end
+	return kept, dropped
+end
+
 local save = ya.sync(function(state)
 	if not state.launch_cwd then
 		return
@@ -56,6 +75,7 @@ local save = ya.sync(function(state)
 	local tab = cx.active
 	local hovered = tab.current.hovered
 	local cursor_name = hovered and tostring(hovered.url):match("([^/]+)$") or nil
+	local now = os.time()
 	local session = {
 		cwd = tostring(tab.current.cwd),
 		cursor = cursor_name,
@@ -68,11 +88,17 @@ local save = ya.sync(function(state)
 		},
 		linemode = tab.pref.linemode,
 		show_hidden = tab.pref.show_hidden,
+		last_seen = now,
 	}
 	local all = read_all(state.state_file)
 	all[state.launch_cwd] = session
-	write_all(state.state_file, all)
-	ya.dbg("persist-by-launch: saved " .. state.launch_cwd)
+	local kept, dropped = sweep(all, now)
+	write_all(state.state_file, kept)
+	if dropped > 0 then
+		ya.dbg("persist-by-launch: saved " .. state.launch_cwd .. ", swept " .. dropped .. " stale")
+	else
+		ya.dbg("persist-by-launch: saved " .. state.launch_cwd)
+	end
 end)
 
 local pending = nil
