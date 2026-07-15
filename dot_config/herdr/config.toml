@@ -47,7 +47,7 @@ default_shell = "fish"
 # Named punctuation such as minus, comma, ampersand, plus, and backtick is also accepted.
 # Most reliable direct bindings are ctrl+letter, function keys, and explicit modified chords.
 # alt+..., cmd/super, and punctuation-with-modifiers may depend on your terminal/tmux setup.
-prefix = "f12"
+prefix = "ctrl+b"
 
 # Prefix-mode actions
 # help = "prefix+?"
@@ -58,7 +58,7 @@ prefix = "f12"
 # workspace_picker = "prefix+w"
 # goto = "prefix+g"
 # new_workspace = "prefix+shift+n"
-# new_worktree = "prefix+shift+g"
+new_worktree = ""
 # open_worktree = ""    # optional, unset by default
 # remove_worktree = ""  # optional, unset by default; opens confirmation
 # rename_workspace = "prefix+shift+w"
@@ -104,9 +104,19 @@ prefix = "f12"
 # type = "shell" runs detached in the background.
 # type = "pane" opens a temporary pane and closes it when the command exits.
 [[keys.command]]
-key = "prefix+shift+v"
+key = "prefix+shift+y"
 type = "pane"
-command = "bash -lc fresh"
+command = "bash -lc yazi"
+
+[[keys.command]]
+key = "prefix+shift+g"
+type = "pane"
+command = "bash -lc lazygit"
+
+[[keys.command]]
+key = "prefix+shift+h"
+type = "pane"
+command = "bash -lc hx"
 
 # Legacy indexed shortcut config is still parsed for compatibility.
 # Prefer switch_tab, switch_workspace, and focus_agent for new configs.
