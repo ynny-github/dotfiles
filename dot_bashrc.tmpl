@@ -8,6 +8,9 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 # Add local bin directories to PATH (in case not set by .bash_profile)
 export PATH="$HOME/.local/bin:$PATH"
 
+# Default editor
+export EDITOR=hx
+
 # Use full activation for interactive shells
 if [[ $- == *i* ]]; then
     eval "$(mise activate bash)"

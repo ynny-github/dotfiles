@@ -9,5 +9,8 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 # Add local bin directories to PATH
 export PATH="$HOME/.local/bin:$PATH"
 
+# Default editor
+export EDITOR=hx
+
 # Initialize mise if available
 eval "$(mise activate zsh --shims)"
