@@ -1,0 +1,14 @@
+#!/bin/sh
+# chezmoi modify_ script for ~/.claude/settings.json.
+# Reads current file on stdin, writes updated file on stdout.
+# Only touches the three keys managed here; hooks / enabledPlugins /
+# extraKnownMarketplaces / env stay whatever the host set them to.
+
+input=$(cat)
+[ -z "$input" ] && input='{}'
+
+printf '%s' "$input" | jq '
+  .permissions.defaultMode = "auto"
+  | .theme = "dark"
+  | .skipAutoPermissionPrompt = true
+'
