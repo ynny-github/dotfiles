@@ -1,8 +1,8 @@
 #!/bin/sh
 # chezmoi modify_ script for ~/.claude/settings.json.
 # Reads current file on stdin, writes updated file on stdout.
-# Only touches the three keys managed here; hooks / enabledPlugins /
-# extraKnownMarketplaces / env stay whatever the host set them to.
+# Only touches the keys managed here; hooks / enabledPlugins /
+# extraKnownMarketplaces / other env vars stay whatever the host set them to.
 
 input=$(cat)
 [ -z "$input" ] && input='{}'
@@ -11,4 +11,12 @@ printf '%s' "$input" | jq '
   .permissions.defaultMode = "auto"
   | .theme = "dark"
   | .skipAutoPermissionPrompt = true
+  | .attribution.commit = ""
+  | .autoMode.allow = ["$defaults", "Write(.claude/rules/*)", "Edit(.claude/rules/*)"]
+  | .env = ((.env // {}) + {
+      "GIT_AUTHOR_NAME": "Claude Code",
+      "GIT_COMMITTER_NAME": "Claude Code",
+      "GIT_AUTHOR_EMAIL": "noreply@anthropic.com",
+      "GIT_COMMITTER_EMAIL": "noreply@anthropic.com"
+    })
 '
