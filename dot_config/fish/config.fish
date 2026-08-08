@@ -39,7 +39,7 @@ set fish_greeting ""
 # Add local bin directories to PATH
 fish_add_path ~/.local/bin
 
-if [ -f ~/.local/bin/mise ]
+if exist_cmd mise
     mise hook-env -s fish | source
     mise complete -s fish | source
 
