@@ -9,3 +9,8 @@ cargo-binstall = "latest"
 "cargo:fresh-editor" = "latest"
 glow = "latest"
 helix = "latest"
+infisical = { version = "latest", asset_pattern = "cli_{{ version }}_{{ os(macos='darwin') }}_{{ arch(x64='amd64') }}.tar.gz" }
+
+[hooks]
+# Tarball modes are applied verbatim on extract, so umask cannot strip them
+postinstall = 'find "${MISE_DATA_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/mise}/installs" ! -type l -perm -g+w -exec chmod g-w,o-w {} +'
