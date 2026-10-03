@@ -13,4 +13,4 @@ infisical = { version = "latest", asset_pattern = "cli_{{ version }}_{{ os(macos
 
 [hooks]
 # Tarball modes are applied verbatim on extract, so umask cannot strip them
-postinstall = 'find "${MISE_DATA_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/mise}/installs" ! -type l -perm -g+w -exec chmod g-w,o-w {} +'
+postinstall = 'd="${MISE_DATA_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/mise}/installs"; if [ -d "$d" ]; then find "$d" ! -type l -perm -g+w -exec chmod g-w,o-w {} + || true; fi'
