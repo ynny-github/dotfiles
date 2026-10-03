@@ -11,6 +11,7 @@ glow = "latest"
 helix = "latest"
 "pipx:copier" = "latest"
 infisical = { version = "latest", asset_pattern = "cli_{{ version }}_{{ os(macos='darwin') }}_{{ arch(x64='amd64') }}.tar.gz" }
+claude-code = "latest"
 
 [hooks]
 # Tarball modes are applied verbatim on extract, so umask cannot strip them
