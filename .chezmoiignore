@@ -27,3 +27,7 @@ buffers/**
 # git
 .gitmodules
 .gitattributess
+# windows only
+{{ if ne .chezmoi.os "windows" }}
+Documents
+{{ end }}
