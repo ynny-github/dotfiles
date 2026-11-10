@@ -31,3 +31,8 @@ buffers/**
 {{ if ne .chezmoi.os "windows" }}
 Documents
 {{ end }}
+
+# toban: only when initialized with TOBAN=1
+{{ if not (get . "toban") }}
+.config/mise/conf.d/toban.toml
+{{ end }}

@@ -1,0 +1,8 @@
+[tools]
+"github:ynny-github/toban" = { version = "latest", minimum_release_age = "0s" }
+
+[settings]
+# New toban releases should be visible right away. Neither switch exists per tool, so both apply to all tools:
+# the mise-versions mirror lags upstream by hours, and the remote version cache hides releases made after the last fetch.
+use_versions_host = false
+fetch_remote_versions_cache = "0s"
