@@ -10,6 +10,7 @@ input=$(cat)
 printf '%s' "$input" | jq '
   .permissions.defaultMode = "auto"
   | .theme = "dark"
+  | .tui = "default"
   | .skipAutoPermissionPrompt = true
   | .attribution.commit = ""
   | .autoMode.allow = ["$defaults", "Write(.claude/rules/*)", "Edit(.claude/rules/*)"]
