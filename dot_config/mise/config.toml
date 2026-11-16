@@ -9,6 +9,8 @@ infisical = { version = "latest", asset_pattern = "cli_{{ version }}_{{ os(macos
 claude-code = "latest"
 node = "latest"
 bun = "latest"
+gh = "latest"
+"github:dmno-dev/varlock" = "latest"
 
 [hooks]
 # Tarball modes are applied verbatim on extract, so umask cannot strip them

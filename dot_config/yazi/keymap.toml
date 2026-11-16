@@ -1,6 +1,0 @@
-# ~/.config/yazi/keymap.toml
-[mgr]
-prepend_keymap = [
-    { on = [ "q" ], run = "plugin persist-by-launch -- save-and-quit", desc = "Save session and quit" },
-]
-
